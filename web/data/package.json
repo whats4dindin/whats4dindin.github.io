@@ -1,0 +1,15 @@
+{
+  "name": "data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "transform.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^5.1.1",
+    "csv-parse": "^4.3.3"
+  }
+}

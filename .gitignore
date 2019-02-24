@@ -1,2 +1,3 @@
 .DS_Store
 pdf2text.pyc
+**/node_modules
