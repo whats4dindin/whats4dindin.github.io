@@ -8,11 +8,11 @@ let weeksDone = 0;
 for (let i = 1; i <= 15; i++) {
     const iFinal = i;
 
-    parseFile(iFinal).then(data => {
+    parseFile("dhh/tabula-dhh-week-"+iFinal+".csv").then(data => {
         weeks[iFinal-1] = data;
         weeksDone++;
         if (weeksDone == 15) {
-            fs.writeFile("wads.json", JSON.stringify(weeks), () => { console.log("done") })
+            fs.writeFile("dhh/data.json", JSON.stringify(weeks), () => { console.log("done") })
         }
 
     }).catch((err) => {
@@ -22,7 +22,7 @@ for (let i = 1; i <= 15; i++) {
     });
 }
 
-function parseFile(fileNum) {
+function parseFile(fileName) {
 
     return new Promise(function(resolve, reject) {
 
@@ -69,7 +69,7 @@ function parseFile(fileNum) {
             resolve(weekData);
         })
     
-        fs.createReadStream("tabula-week-"+fileNum+".csv").pipe(parser);
+        fs.createReadStream(fileName).pipe(parser);
 
     });
 
