@@ -43,13 +43,13 @@ function parseFile(fileName) {
                             dayData.day = col;
                             break;
                         case 1:
-                            dayData.breakfast = col;
+                            dayData.breakfast = parseItems(col);
                             break;
                         case 2:
-                            dayData.lunch = col;
+                            dayData.lunch = parseItems(col);
                             break;
                         case 3:
-                            dayData.dinner = col;
+                            dayData.dinner = parseItems(col);
                             break;
                         default:
                             console.log("invalid rowNum encountered: " + rowNum);
@@ -77,8 +77,30 @@ function parseFile(fileName) {
 }
 
 
-for (let i = 1; i <= 1; i++) {
-
+function parseItems(items) {
     
+    items = items.replace(/brunch/gi, "");
+    if (items.charAt(0) == "\r") {
+        items = items.substr(1);
+    }
+    
+    let inParentheses = false;
 
+    for (let i = 0; i < items.length; i++) {
+        const char = items.charAt(i);
+        if (char == "(") {
+            inParentheses = true;
+        }
+        if (char == ")") {
+            inParentheses = false;
+        }
+        if (char == "\r" && inParentheses) {
+            items = items.substr(0, i) + items.substr(i+1, items.length);
+        }
+        if (char == "\r" && i < items.length - 1 && items.charAt(i+1) == "(") {
+            items = items.substr(0, i) + items.substr(i+1, items.length);
+        }
+    }
+
+    return items.split("\r");
 }

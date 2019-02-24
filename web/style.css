@@ -1,0 +1,20 @@
+
+* {
+    font-family: sans-serif
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+}
+
+th, td {
+    padding: 2px 10px;
+    border: 1px solid black;
+}
+
+th {
+    background-color: rgba(200, 200, 200)
+}
