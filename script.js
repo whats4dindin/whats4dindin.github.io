@@ -50,7 +50,7 @@ function onDateChange(date) {
         ));
     }
 
-    if (maxLength === 1 && dayMenu.breakfast[0] === "") {
+    if (maxLength === 0 || (maxLength === 1 && dayMenu.breakfast[0] === "")) {
         noData()
     }
 }
