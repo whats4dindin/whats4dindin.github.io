@@ -1,11 +1,25 @@
 
 const datePicker = $("#date-picker");
 const buildingPicker = $("#building-picker");
+const yesterdayButton = $("#yesterday");
+const tomorrowButton = $("#tomorrow");
 
 let buildingMenu = undefined;
 
 datePicker.on("change", () => onDateChange(datePicker.val()));
-buildingPicker.on("change", () => onBuildingChange(buildingPicker.val()))
+buildingPicker.on("change", () => onBuildingChange(buildingPicker.val()));
+yesterdayButton.on("click", () => {
+    let date = datePicker.datepicker("getDate");
+    date.setHours(date.getHours() - 24);
+    datePicker.datepicker("setDate", date);
+    onDateChange(date);
+});
+tomorrowButton.on("click", () => {
+    let date = datePicker.datepicker("getDate");
+    date.setHours(date.getHours() + 24);
+    datePicker.datepicker("setDate", date);
+    onDateChange(date);
+});
 
 datePicker.datepicker();
 datePicker.datepicker("setDate", new Date());
@@ -77,7 +91,9 @@ async function onBuildingChange(building) {
 
 // parses date in format mm/dd/yyyy
 function parseDate(date) {
-    console.log(date)
+    if (date instanceof Date) {
+        return date;
+    }
 
     let sections = date.split("/");
     if (sections.length != 3) {

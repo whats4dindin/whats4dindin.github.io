@@ -3,6 +3,10 @@
     font-family: sans-serif
 }
 
+section {
+    display: inline-block;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -17,8 +21,11 @@ th {
 }
 
 #yesterday {
-    float: left;
 }
 #tomorrow {
     float: right;
+}
+
+button {
+    padding: 0px 20px;
 }
