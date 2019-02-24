@@ -4,19 +4,21 @@ const buildingPicker = $("#building-picker");
 const yesterdayButton = $("#yesterday");
 const tomorrowButton = $("#tomorrow");
 
+const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
 let buildingMenu = undefined;
 
 datePicker.on("change", () => onDateChange(datePicker.val()));
 buildingPicker.on("change", () => onBuildingChange(buildingPicker.val()));
 yesterdayButton.on("click", () => {
     let date = datePicker.datepicker("getDate");
-    date.setHours(date.getHours() - 24);
+    date.setDate(date.getDate() - 1);
     datePicker.datepicker("setDate", date);
     onDateChange(date);
 });
 tomorrowButton.on("click", () => {
     let date = datePicker.datepicker("getDate");
-    date.setHours(date.getHours() + 24);
+    date.setDate(date.getDate() + 1);
     datePicker.datepicker("setDate", date);
     onDateChange(date);
 });
@@ -34,6 +36,9 @@ onBuildingChange(buildingPicker.val());
 
 function onDateChange(date) {
     date = parseDate(date); // transform date into an actual Date object
+
+    $("#dayofweek").text(weekdays[date.getDay()])
+
     if (!buildingMenu) {
         return;
     }
@@ -41,18 +46,17 @@ function onDateChange(date) {
     $(".menu").show();
     $(".menu-row").remove();
 
-    let weekNum = Math.floor((date - new Date(2019, 0, 14)) / (1000*60*60*24*7));
-    if (weekNum == 9) {
+    let weekNum = Math.floor(calendarDays(new Date(2019, 0, 14), date) / 7);
+    console.log(weekNum)
+    if (weekNum === 8) {
         noData();
         return;
     }
-    if (weekNum > 9) {
+    if (weekNum > 8) {
         weekNum--;
     }
 
     weekday = ((date.getDay() - 1) + 7) % 7;
-    console.log(buildingMenu);
-    console.log(weekNum)
     const dayMenu = buildingMenu[weekNum][weekday];
 
     const maxLength = Math.max(dayMenu.breakfast.length, dayMenu.lunch.length, dayMenu.dinner.length);
@@ -102,4 +106,16 @@ function parseDate(date) {
 
     let retVal = new Date(parseInt(sections[2], 10), parseInt(sections[0], 10)-1, parseInt(sections[1], 10))
     return retVal;
+}
+
+function calendarDays(start, end) {
+    let cur = new Date(start.getYear(), start.getMonth(), start.getDate());
+    let stop = new Date(end.getYear(), end.getMonth(), end.getDate());
+    let days = 0;
+    while (cur < stop) {
+        cur.setDate(cur.getDate()+1);
+        days++;
+    }
+
+    return days;
 }

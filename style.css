@@ -21,6 +21,10 @@ th {
 }
 
 #yesterday {
+    float: left;
+}
+#controls {
+    text-align: center;
 }
 #tomorrow {
     float: right;
