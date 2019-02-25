@@ -33,3 +33,9 @@ th {
 button {
     padding: 0px 20px;
 }
+
+@media screen and (max-width:800px){
+    .menu {
+        width:100%x;
+    }
+}
