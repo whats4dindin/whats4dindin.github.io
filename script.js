@@ -3,6 +3,9 @@ const datePicker = $("#date-picker");
 const buildingPicker = $("#building-picker");
 const yesterdayButton = $("#yesterday");
 const tomorrowButton = $("#tomorrow");
+const wadsBtm = $("#wads");
+const mcnairBtm = $("#mcnair");
+const dhhBtm = $("#dhh");
 
 const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
@@ -10,6 +13,15 @@ let buildingMenu = undefined;
 
 datePicker.on("change", () => onDateChange(datePicker.val()));
 buildingPicker.on("change", () => onBuildingChange(buildingPicker.val()));
+wadsBtm.on("click", () => {
+    onBuildingChange(wadsBtm.val());
+});
+mcnairBtm.on("click", () => {
+    onBuildingChange(mcnairBtm.val());
+});
+dhhBtm.on("click", () => {
+    onBuildingChange(dhhBtm.val());
+});
 yesterdayButton.on("click", () => {
     let date = datePicker.datepicker("getDate");
     date.setDate(date.getDate() - 1);
