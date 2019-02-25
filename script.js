@@ -1,6 +1,6 @@
 
 const datePicker = $("#date-picker");
-const buildingPicker = $("#building-picker");
+// const buildingPicker = $("#building-picker");
 const yesterdayButton = $("#yesterday");
 const tomorrowButton = $("#tomorrow");
 const wadsBtm = $("#wads");
@@ -12,7 +12,7 @@ const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","S
 let buildingMenu = undefined;
 
 datePicker.on("change", () => onDateChange(datePicker.val()));
-buildingPicker.on("change", () => onBuildingChange(buildingPicker.val()));
+// buildingPicker.on("change", () => onBuildingChange(buildingPicker.val()));
 wadsBtm.on("click", () => {
     onBuildingChange(wadsBtm.val());
 });
@@ -22,6 +22,7 @@ mcnairBtm.on("click", () => {
 dhhBtm.on("click", () => {
     onBuildingChange(dhhBtm.val());
 });
+
 yesterdayButton.on("click", () => {
     let date = datePicker.datepicker("getDate");
     date.setDate(date.getDate() - 1);
@@ -43,7 +44,8 @@ datePicker.datepicker({
 });
 
 onDateChange(datePicker.val());
-onBuildingChange(buildingPicker.val());
+// onBuildingChange(buildingPicker.val());
+onBuildingChange("wads");
 
 
 function onDateChange(date) {
@@ -101,6 +103,7 @@ async function onBuildingChange(building) {
     
     const res = await fetch("data/"+building+"/data.json");
     buildingMenu = await res.json();
+    $("#heading").text(building.toUpperCase())
 
     onDateChange(datePicker.val())
 }
